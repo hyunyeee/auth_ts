@@ -1,5 +1,5 @@
 const SignUp = () => {
-  return <></>;
+  return <>회원가입</>;
 };
 
 export default SignUp;
