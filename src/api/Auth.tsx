@@ -24,7 +24,7 @@ export function useUser(url: string): {
   };
 }
 
-export const postForm = async (
+export const postSignUpForm = async (
   url: string,
   data: { password: string; email: string; username: string }
 ) => {
@@ -35,8 +35,21 @@ export const postForm = async (
     },
     body: JSON.stringify(data),
   });
-  if (!response.ok) {
-    throw new Error('데이터 fetching 중 에러 발생');
-  }
+
+  return await response.json();
+};
+
+export const postLogInForm = async (
+  url: string,
+  data: { password: string; email: string }
+) => {
+  const response = await fetch(BASE_URL + url, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(data),
+  });
+
   return await response.json();
 };
