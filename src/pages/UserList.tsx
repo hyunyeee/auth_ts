@@ -13,9 +13,9 @@ const UserList = () => {
       {data && (
         <div>
           {data?.map((user: User) => (
-            <div>
-              <div key={user.email}>{user.email}</div>
-              <div key={user.username}>{user.username}</div>
+            <div key={user.username}>
+              <div>{user.email}</div>
+              <div>{user.username}</div>
             </div>
           ))}
         </div>
