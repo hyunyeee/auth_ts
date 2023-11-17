@@ -1,8 +1,10 @@
+import { User } from '../interfaces/User';
+import useSWRMutation from 'swr/mutation';
 import { useNavigate } from 'react-router-dom';
 import { postFetcher } from '../api/auth';
-import { User } from '../interfaces/User';
 
 const SignUp = () => {
+  const { mutate } = useSWRMutation(postFetcher);
   const navigate = useNavigate();
 
   const handleResponse = (responseData) => {
@@ -22,16 +24,12 @@ const SignUp = () => {
       password: formData.get('password') as string,
       username: formData.get('username') as string,
     };
-    await handleSubmit(signUpdata);
-  };
 
-  const handleSubmit = async (signUpdata) => {
-    try {
-      const responseData = await postFetcher('/api/auth/register', signUpdata);
-      handleResponse(responseData);
-    } catch (error) {
-      console.error('회원가입 과정에서 오류 발생:', error);
-    }
+    mutate('/api/auth/register', signUpdata)
+      .then(handleResponse)
+      .catch((error) => {
+        console.error('회원가입 과정에서 오류 발생:', error);
+      });
   };
 
   return (

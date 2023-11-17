@@ -1,7 +1,9 @@
+import useSWRMutation from 'swr/mutation';
 import { useNavigate } from 'react-router-dom';
 import { postFetcher } from '../api/auth';
 
 const LogIn = () => {
+  const { mutate } = useSWRMutation(postFetcher);
   const navigate = useNavigate();
 
   const handleResponse = (responseData) => {
@@ -20,16 +22,12 @@ const LogIn = () => {
       email: formData.get('email') as string,
       password: formData.get('password') as string,
     };
-    await handleSubmit(logIndata);
-  };
 
-  const handleSubmit = async (logIndata) => {
-    try {
-      const responseData = await postFetcher('/api/auth/login', logIndata);
-      handleResponse(responseData);
-    } catch (error) {
-      console.error('로그인 과정에서 오류 발생:', error);
-    }
+    mutate('/api/auth/login', logIndata)
+      .then(handleResponse)
+      .catch((error) => {
+        console.error('로그인 과정에서 오류 발생:', error);
+      });
   };
 
   return (
