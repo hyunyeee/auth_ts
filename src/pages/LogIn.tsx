@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { postLogInForm } from '../api/Auth';
+import { postFetcher } from '../api/Auth';
 
 const LogIn = () => {
   const navigate = useNavigate();
@@ -14,7 +14,7 @@ const LogIn = () => {
     };
 
     try {
-      const responseData = await postLogInForm('/api/auth/login', logIndata);
+      const responseData = await postFetcher('/api/auth/login', logIndata);
       if (responseData?.data) {
         alert(responseData.data);
         navigate('/');

@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { postSignUpForm } from '../api/Auth';
+import { postFetcher } from '../api/Auth';
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -13,7 +13,7 @@ const SignUp = () => {
       username: formData.get('username') as string,
     };
     try {
-      const responseData = await postSignUpForm(
+      const responseData = await postFetcher(
         '/api/auth/register',
         signUpdata
       );
