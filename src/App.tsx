@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Link, Route, Routes } from 'react-router-dom';
 import UserList from './pages/UserList';
 import LogIn from './pages/LogIn';
 import SignUp from './pages/SignUp';
@@ -7,9 +7,9 @@ function App() {
   return (
     <BrowserRouter>
       <nav>
-        <a href="/">User List</a>
-        <a href="/log-in">LogIn</a>
-        <a href="/sign-up">SignUp</a>
+        <Link to="/">User List</Link>
+        <Link to="/log-in">LogIn</Link>
+        <Link to="/sign-up">SignUp</Link>
       </nav>
       <Routes>
         <Route path="/" element={<UserList />} />
