@@ -4,23 +4,29 @@ import { postFetcher } from '../api/auth';
 const LogIn = () => {
   const navigate = useNavigate();
 
+  const handleResponse = (responseData) => {
+    if (responseData?.data) {
+      alert(responseData.data);
+      navigate('/');
+    } else if (responseData?.error) {
+      alert(responseData.error);
+    }
+  };
+
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
     const formData = new FormData(e.currentTarget);
     const logIndata = {
       email: formData.get('email') as string,
       password: formData.get('password') as string,
     };
+    await handleSubmit(logIndata);
+  };
 
+  const handleSubmit = async (logIndata) => {
     try {
       const responseData = await postFetcher('/api/auth/login', logIndata);
-      if (responseData?.data) {
-        alert(responseData.data);
-        navigate('/');
-      } else if (responseData?.error) {
-        alert(responseData.error);
-      }
+      handleResponse(responseData);
     } catch (error) {
       console.error('로그인 과정에서 오류 발생:', error);
     }
