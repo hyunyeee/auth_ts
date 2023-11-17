@@ -7,8 +7,11 @@ export interface User {
 }
 
 const BASE_URL = process.env.REACT_APP_BASE_URL;
-const fetcher = (url: string) =>
-  fetch(BASE_URL + url).then((res) => res.json());
+const fetcher = async (url: string) => {
+  const response = await fetch(BASE_URL + url);
+  const data = await response.json();
+  return data;
+};
 
 export function useUser(url: string): {
   isLoading: boolean;
