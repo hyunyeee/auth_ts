@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
-import { postFetcher } from '../api/Auth';
+import { postFetcher } from '../api/auth';
+import { User } from '../interfaces/User';
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -7,7 +8,7 @@ const SignUp = () => {
     e.preventDefault();
 
     const formData = new FormData(e.currentTarget);
-    const signUpdata = {
+    const signUpdata: User = {
       email: formData.get('email') as string,
       password: formData.get('password') as string,
       username: formData.get('username') as string,

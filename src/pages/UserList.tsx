@@ -1,5 +1,5 @@
-import { useUser } from '../api/Auth';
-import { User } from '../api/Auth';
+import { User } from '../interfaces/User';
+import { useUser } from '../hooks/useUser';
 
 const UserList = () => {
   const { data, isLoading, isError } = useUser('/api/users');

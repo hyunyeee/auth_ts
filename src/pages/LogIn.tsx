@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { postFetcher } from '../api/Auth';
+import { postFetcher } from '../api/auth';
 
 const LogIn = () => {
   const navigate = useNavigate();
