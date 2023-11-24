@@ -25,9 +25,8 @@ export const Header = ({ onClickLogo, tabs, tabStatus }: HeaderProps) => {
 };
 
 const Container = styled.div`
-  display: flex;
   height: 70px;
-  border-bottom: ${({ theme }) => theme.color.gray3};
+  border-bottom: 1px solid ${({ theme }) => theme.color.gray3};
   position: sticky;
   background-color: #fff;
   top: 0;
@@ -37,6 +36,7 @@ const InnerContainer = styled.div`
   justify-content: space-between;
   align-items: center;
   width: 100%;
+  margin: 0 auto;
   padding: 0 20px;
   max-width: 1280px;
 `;
