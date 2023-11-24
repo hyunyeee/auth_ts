@@ -9,8 +9,7 @@ const checkBaseUrl = () => {
 export const fetcher = async (url: string) => {
   checkBaseUrl();
   const response = await fetch(BASE_URL + url);
-  const data = await response.json();
-  return data;
+  return await response.json();
 };
 
 export const postFetcher = async (
