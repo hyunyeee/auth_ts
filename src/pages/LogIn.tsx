@@ -20,8 +20,13 @@ const LogIn = () => {
   const { trigger } = useSWRMutation('/api/auth/login', postFetcher, {
     onSuccess: async (data) => {
       const response = await data;
-      alert(response?.data?.message);
-      navigate('/');
+      if (response?.data) {
+        alert(response?.data?.message);
+        navigate('/');
+      }
+      if (response?.error) {
+        alert(response?.error?.message);
+      }
     },
   });
 
