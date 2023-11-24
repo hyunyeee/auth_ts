@@ -37,7 +37,7 @@ const LogIn = () => {
         <InputWrapper>
           <InputBox>
             <Label>이메일</Label>
-            <Input required autoFocus type="email" {...register('email')} />
+            <Input autoFocus required type="email" {...register('email')} />
           </InputBox>
           <InputBox>
             <Label>비밀번호</Label>
