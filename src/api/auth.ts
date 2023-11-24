@@ -12,17 +12,14 @@ export const fetcher = async (url: string) => {
   return await response.json();
 };
 
-export const postFetcher = async (
-  url: string,
-  data: { password: string; email: string; username?: string }
-) => {
+export const postFetcher = async (url: string, { arg }: { arg: any }) => {
   checkBaseUrl();
   const response = await fetch(BASE_URL + url, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify(data),
+    body: JSON.stringify(arg),
   });
 
   return await response.json();

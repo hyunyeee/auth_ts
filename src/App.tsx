@@ -23,7 +23,7 @@ function App() {
       id: 0,
       title: '로그인',
       onClick: () => {
-        navigate('/login');
+        navigate('/log-in');
         setTabStatus({ login: true, register: false });
       },
       path: 'login',
@@ -32,7 +32,7 @@ function App() {
       id: 1,
       title: '회원가입',
       onClick: () => {
-        navigate('/register');
+        navigate('/sign-up');
         setTabStatus({ login: false, register: true });
       },
       path: 'register',

@@ -60,6 +60,10 @@ const GlobalStyles = createGlobalStyle`
     border-spacing: 0;
   }
   
+  button {
+    background-color: transparent;
+    border: none;
+  }
   `;
 
 export default GlobalStyles;
