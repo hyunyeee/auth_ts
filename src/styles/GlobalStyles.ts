@@ -63,6 +63,15 @@ const GlobalStyles = createGlobalStyle`
   button {
     background-color: transparent;
     border: none;
+    &:hover {
+      cursor: pointer;
+    }
+  }
+  
+  input {
+    &:focus{
+      outline: none;
+    }
   }
   `;
 

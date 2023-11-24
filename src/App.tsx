@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import UserList from './pages/UserList';
 import LogIn from './pages/LogIn';
@@ -6,9 +7,8 @@ import { ThemeProvider } from 'styled-components';
 import GlobalStyles from './styles/GlobalStyles';
 import { GlobalFonts } from './styles/GlobalFonts';
 import { theme } from './ds/theme';
-import { Header } from './ds/components/Header';
 import { Tabs } from './ds/components/TabBar';
-import { useState } from 'react';
+import { Header } from './ds/components/Header';
 
 function App() {
   const navigate = useNavigate();
