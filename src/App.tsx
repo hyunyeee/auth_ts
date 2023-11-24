@@ -14,7 +14,7 @@ function App() {
   const navigate = useNavigate();
 
   const [tabStatus, setTabStatus] = useState({
-    login: true,
+    login: false,
     register: false,
   });
 
@@ -46,11 +46,11 @@ function App() {
       <Header
         onClickLogo={() => {
           navigate('/');
+          setTabStatus({ login: false, register: false })
         }}
         tabs={tabs}
         tabStatus={tabStatus}
       />
-
       <Routes>
         <Route path="/" element={<UserList />} />
         <Route path="/log-in" element={<LogIn />} />
