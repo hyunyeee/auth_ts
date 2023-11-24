@@ -3,15 +3,24 @@ import { useNavigate } from 'react-router-dom';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import useSWRMutation from 'swr/mutation';
 import { postFetcher } from '../api/auth';
-import { User } from '../interfaces/User';
+import { LoginData } from '../interfaces/User';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { login_schema } from '../validation/schema';
 
 const LogIn = () => {
   const navigate = useNavigate();
-  const { register, handleSubmit } = useForm<User>({
+
+  const {
+    register,
+    handleSubmit,
+    trigger: hookTrigger,
+    formState: { errors },
+  } = useForm<LoginData>({
     mode: 'onSubmit',
+    resolver: yupResolver(login_schema),
   });
 
-  const onSubmit: SubmitHandler<User> = (item, event) => {
+  const onSubmit: SubmitHandler<LoginData> = (item, event) => {
     console.log(item);
     event?.preventDefault();
     trigger(item);
@@ -33,15 +42,30 @@ const LogIn = () => {
   return (
     <LogInWrapper>
       <Title>로그인</Title>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form noValidate onSubmit={handleSubmit(onSubmit)}>
         <InputWrapper>
           <InputBox>
             <Label>이메일</Label>
-            <Input autoFocus required type="email" {...register('email')} />
+            <Input
+              $isError={errors?.email?.message}
+              autoFocus
+              required
+              type="email"
+              {...register('email')}
+              onBlur={() => hookTrigger('email')}
+            />
+            <HelperText>{errors?.email?.message}</HelperText>
           </InputBox>
           <InputBox>
             <Label>비밀번호</Label>
-            <Input required type="password" {...register('password')} />
+            <Input
+              $isError={errors?.password?.message}
+              required
+              type="password"
+              {...register('password')}
+              onBlur={() => hookTrigger('password')}
+            />
+            <HelperText>{errors?.password?.message}</HelperText>
           </InputBox>
         </InputWrapper>
         <SubmitBtn type="submit">로그인</SubmitBtn>
@@ -77,12 +101,21 @@ const Label = styled.label`
   ${({ theme }) => theme.typography.body};
   color: ${({ theme }) => theme.color.gray1};
 `;
-const Input = styled.input`
+
+interface InputProps {
+  $isError?: boolean | string;
+}
+const Input = styled.input<InputProps>`
   padding: 14px 16px;
-  border: 1px solid ${({ theme }) => theme.color.gray3};
+  border: 1px solid
+    ${({ theme, $isError }) => ($isError ? theme.color.red : theme.color.gray3)};
   border-radius: 12px;
   ${({ theme }) => theme.typography.body};
   color: ${({ theme }) => theme.color.gray1};
+`;
+const HelperText = styled.p`
+  ${({ theme }) => theme.typography.body};
+  color: ${({ theme }) => theme.color.red};
 `;
 const SubmitBtn = styled.button`
   width: 500px;

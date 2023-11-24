@@ -11,7 +11,7 @@ const color = {
 const typography = {
   title1: css`
     font-size: 20px;
-    font-weight: bold;
+    font-weight: 700;
     line-height: 26px;
   `,
   body: css`
