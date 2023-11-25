@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { Route, Routes, useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import UserList from './pages/UserList';
 import LogIn from './pages/LogIn';
 import SignUp from './pages/SignUp';
@@ -39,6 +39,17 @@ function App() {
     },
   ];
 
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.pathname === '/')
+      setTabStatus({ login: false, register: false });
+    else if (location.pathname === '/log-in')
+      setTabStatus({ login: true, register: false });
+    else if (location.pathname === '/sign-up')
+      setTabStatus({ login: false, register: true });
+  }, [location]);
+
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyles />
@@ -46,7 +57,7 @@ function App() {
       <Header
         onClickLogo={() => {
           navigate('/');
-          setTabStatus({ login: false, register: false })
+          setTabStatus({ login: false, register: false });
         }}
         tabs={tabs}
         tabStatus={tabStatus}

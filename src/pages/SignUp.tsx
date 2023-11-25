@@ -6,9 +6,12 @@ import { postFetcher } from '../api/auth';
 import { User } from '../interfaces/User';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { signup_schema } from '../validation/schema';
+import { useState } from 'react';
 
 const SignUp = () => {
   const navigate = useNavigate();
+  const [duplicate, setDuplicate] = useState<string>('');
+
   const {
     register,
     handleSubmit,
@@ -34,7 +37,7 @@ const SignUp = () => {
         navigate('/log-in');
       }
       if (response?.error) {
-        alert(response?.error?.message);
+        setDuplicate(response?.error?.message);
       }
     },
   });
@@ -54,7 +57,11 @@ const SignUp = () => {
               {...register('username')}
               onBlur={() => hookTrigger('username')}
             />
-            <HelperText>{errors?.username?.message}</HelperText>
+            {(errors ?? duplicate) && (
+              <HelperText>
+                {errors.username?.message ?? duplicate ?? ''}
+              </HelperText>
+            )}
           </InputBox>
           <InputBox>
             <Label>이메일</Label>
@@ -65,7 +72,8 @@ const SignUp = () => {
               {...register('email')}
               onBlur={() => hookTrigger('email')}
             />
-            <HelperText>{errors?.email?.message}</HelperText>
+
+            {errors && <HelperText>{errors?.email?.message}</HelperText>}
           </InputBox>
           <InputBox>
             <Label>비밀번호</Label>
@@ -76,7 +84,7 @@ const SignUp = () => {
               {...register('password')}
               onBlur={() => hookTrigger('password')}
             />
-            <HelperText>{errors?.password?.message}</HelperText>
+            {errors && <HelperText>{errors?.password?.message}</HelperText>}
           </InputBox>
         </InputWrapper>
         <SubmitBtn type="submit">가입하기</SubmitBtn>

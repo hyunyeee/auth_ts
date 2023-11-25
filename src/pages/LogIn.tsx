@@ -6,9 +6,13 @@ import { postFetcher } from '../api/auth';
 import { LoginData } from '../interfaces/User';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { login_schema } from '../validation/schema';
+import { useState } from 'react';
+
+type LoginMessage = string;
 
 const LogIn = () => {
   const navigate = useNavigate();
+  const [loginMessage, setLoginMessage] = useState<LoginMessage>('');
 
   const {
     register,
@@ -34,7 +38,7 @@ const LogIn = () => {
         navigate('/');
       }
       if (response?.error) {
-        alert(response?.error?.message);
+        setLoginMessage(response?.error?.message);
       }
     },
   });
@@ -54,7 +58,11 @@ const LogIn = () => {
               {...register('email')}
               onBlur={() => hookTrigger('email')}
             />
-            <HelperText>{errors?.email?.message}</HelperText>
+            {(errors ?? loginMessage) && (
+              <HelperText>
+                {errors.email?.message ?? loginMessage ?? ''}
+              </HelperText>
+            )}
           </InputBox>
           <InputBox>
             <Label>비밀번호</Label>
@@ -65,7 +73,7 @@ const LogIn = () => {
               {...register('password')}
               onBlur={() => hookTrigger('password')}
             />
-            <HelperText>{errors?.password?.message}</HelperText>
+            {errors && <HelperText>{errors?.password?.message}</HelperText>}
           </InputBox>
         </InputWrapper>
         <SubmitBtn type="submit">로그인</SubmitBtn>
